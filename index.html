@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CineMagic - Премиальный кинотеатр</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎬</text></svg>">
+</head>
+
+<body class="bg-gray-900 text-white font-sans">
+    <!-- Анимированный фон -->
+    <div class="fixed inset-0 z-0 overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-br from-gray-900 via-purple-900 to-gray-900 opacity-95"></div>
+        <div id="particles-js" class="absolute inset-0"></div>
+        <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-gray-900 opacity-80"></div>
+    </div>
+
+    <!-- Шапка сайта с параллакс эффектом -->
+    <header
+        class="py-4 px-6 bg-gray-900/80 backdrop-blur-md shadow-xl sticky top-0 z-50 border-b border-gray-800 transition-all duration-300">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="flex items-center space-x-3 group">
+                <div class="relative">
+                    <div
+                        class="w-10 h-10 bg-red-600 rounded-full absolute -inset-1 opacity-70 blur group-hover:opacity-100 group-hover:animate-pulse transition-all duration-300">
+                    </div>
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                        class="h-10 w-10 text-white relative z-10 transform transition-all duration-300 group-hover:rotate-90"
+                        fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M7 4v16M17 4v16M3 8h4m10 0h4M3 12h18M3 16h4m10 0h4M4 20h16a1 1 0 001-1V5a1 1 0 00-1-1H4a1 1 0 00-1 1v14a1 1 0 001 1z" />
+                    </svg>
+                </div>
+                <h1
+                    class="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-red-500 via-purple-500 to-red-500 bg-size-200 bg-pos-0 hover:bg-pos-100 transition-all duration-500 font-playfair tracking-wider">
+                    CineMagic</h1>
+            </div>
+
+            <nav class="hidden md:block">
+                <ul class="flex space-x-8">
+                    <li><a href="#"
+                            class="nav-link relative text-lg font-medium hover:text-red-400 transition-all duration-300 flex items-center">
+                            <span class="mr-2">🏠</span> Главная
+                            <span
+                                class="absolute bottom-0 left-0 w-0 h-0.5 bg-red-500 transition-all duration-300 group-hover:w-full"></span>
+                        </a></li>
+                    <li><a href="#"
+                            class="nav-link relative text-lg font-medium hover:text-red-400 transition-all duration-300 flex items-center">
+                            <span class="mr-2">🎥</span> Фильмы
+                        </a></li>
+                    <li><a href="#"
+                            class="nav-link relative text-lg font-medium hover:text-red-400 transition-all duration-300 flex items-center">
+                            <span class="mr-2">📺</span> Сериалы
+                        </a></li>
+                    <li><a href="#"
+                            class="nav-link relative text-lg font-medium hover:text-red-400 transition-all duration-300 flex items-center">
+                            <span class="mr-2">✨</span> Новинки
+                        </a></li>
+                </ul>
+            </nav>
+
+            <button id="mobileMenuButton" class="md:hidden text-white focus:outline-none">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16">
+                    </path>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Мобильное меню -->
+        <div id="mobileMenu"
+            class="hidden md:hidden absolute top-full left-0 right-0 bg-gray-900/95 backdrop-blur-md py-4 px-6 shadow-xl border-t border-gray-800 animate__animated animate__faster">
+            <ul class="space-y-4">
+                <li><a href="#" class="block text-lg hover:text-red-400 transition">🏠 Главная</a></li>
+                <li><a href="#" class="block text-lg hover:text-red-400 transition">🎥 Фильмы</a></li>
+                <li><a href="#" class="block text-lg hover:text-red-400 transition">📺 Сериалы</a></li>
+                <li><a href="#" class="block text-lg hover:text-red-400 transition">✨ Новинки</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Герой секция с параллаксом -->
+    <section class="relative h-screen flex items-center justify-center overflow-hidden hero-section">
+        <div class="absolute inset-0 z-0">
+            <div class="hero-slideshow">
+                <div class="hero-slide active"
+                    style="background-image: url('https://image.tmdb.org/t/p/original/9yBVqNruk6Ykrwc32qrK2TIE5xw.jpg')">
+                </div>
+                <div class="hero-slide"
+                    style="background-image: url('https://image.tmdb.org/t/p/original/8Y43POKjjKDGI9MH89NW0NAzzp8.jpg')">
+                </div>
+                <div class="hero-slide"
+                    style="background-image: url('https://image.tmdb.org/t/p/original/1XDDXPXGiI8id7MrUxK36ke7gkX.jpg')">
+                </div>
+            </div>
+            <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/70 to-transparent"></div>
+            <div class="absolute inset-0 bg-gradient-to-b from-gray-900 via-gray-900/70 to-transparent"></div>
+        </div>
+
+        <div
+            class="container mx-auto px-6 relative z-10 text-center animate__animated animate__fadeInUp animate__delay-1s">
+            <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 font-playfair leading-tight">
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-purple-500">Мир
+                    кино</span><br>
+                <span class="text-white">в вашем распоряжении</span>
+            </h1>
+            <p class="text-xl md:text-2xl text-gray-300 mb-10 max-w-3xl mx-auto">Откройте для себя лучшие фильмы и
+                сериалы со всего мира в потрясающем качестве</p>
+
+            <!-- Улучшенный поисковик -->
+            <div class="max-w-3xl mx-auto relative group">
+                <input type="text" id="searchInput" placeholder="Найти фильм, сериал, актера..."
+                    class="w-full py-4 px-8 rounded-full bg-gray-800/90 backdrop-blur-md text-white focus:outline-none focus:ring-2 focus:ring-red-500 shadow-2xl border border-gray-700 hover:border-red-500 transition-all duration-300 text-lg">
+                <button id="searchButton"
+                    class="absolute right-2 top-1/2 transform -translate-y-1/2 bg-gradient-to-r from-red-600 to-purple-600 hover:from-red-700 hover:to-purple-700 text-white py-3 px-6 rounded-full transition-all duration-300 flex items-center shadow-lg hover:shadow-red-500/30 bg-black">
+                    <span class="mr-2">🔍</span> Поиск
+                </button>
+                <div class="absolute left-0 right-0 top-full mt-2 bg-gray-800/95 backdrop-blur-md rounded-xl shadow-2xl overflow-hidden hidden z-50"
+                    id="searchSuggestions">
+                    <!-- Подсказки будут появляться здесь -->
+                </div>
+            </div>
+
+            <div class="mt-12 flex justify-center space-x-4">
+                <button
+                    class="px-8 py-3 bg-red-600 hover:bg-red-700 text-white rounded-full font-medium transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-red-500/30 flex items-center">
+                    <span class="mr-2">🎬</span> Популярное
+                </button>
+                <button
+                    class="px-8 py-3 bg-transparent border-2 border-white hover:border-red-500 text-white hover:text-red-400 rounded-full font-medium transition-all duration-300 transform hover:scale-105 shadow-lg flex items-center">
+                    <span class="mr-2">✨</span> Новинки
+                </button>
+            </div>
+        </div>
+
+        <div class="absolute bottom-10 left-0 right-0 flex justify-center z-10 animate-bounce">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-white opacity-70" fill="none"
+                viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3">
+                </path>
+            </svg>
+        </div>
+    </section>
+
+    <!-- Популярные фильмы (слайдер премиум) -->
+    <section class="py-20 px-6 relative z-10">
+        <div class="container mx-auto">
+            <div class="flex justify-between items-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold font-playfair">
+                    <span
+                        class="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-purple-500">Популярные</span>
+                    фильмы
+                </h2>
+                <a href="#" class="text-red-400 hover:text-red-300 flex items-center transition-all">
+                    <span>Смотреть все</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1" viewBox="0 0 20 20"
+                        fill="currentColor">
+                        <path fill-rule="evenodd"
+                            d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                            clip-rule="evenodd"></path>
+                    </svg>
+                </a>
+            </div>
+
+            <div class="swiper-container movie-slider-premium">
+                <div class="swiper-wrapper" id="popularMovies">
+                    <!-- Фильмы будут загружены через API -->
+                    <div class="swiper-slide">
+                        <div class="skeleton-card h-96 w-full bg-gray-800 rounded-xl"></div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="skeleton-card h-96 w-full bg-gray-800 rounded-xl"></div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="skeleton-card h-96 w-full bg-gray-800 rounded-xl"></div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="skeleton-card h-96 w-full bg-gray-800 rounded-xl"></div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="skeleton-card h-96 w-full bg-gray-800 rounded-xl"></div>
+                    </div>
+                </div>
+                <div class="swiper-pagination !bottom-0"></div>
+                <div class="swiper-button-next !right-0"></div>
+                <div class="swiper-button-prev !left-0"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Результаты поиска (скрытый раздел) -->
+    <section class="py-16 px-6 bg-gray-900/80 backdrop-blur-md hidden" id="searchResultsSection">
+        <div class="container mx-auto">
+            <div class="flex justify-between items-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold font-playfair">
+                    <span
+                        class="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-purple-500">Результаты</span>
+                    поиска
+                </h2>
+                <button id="closeSearchResults" class="text-gray-400 hover:text-white transition">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
+                        </path>
+                    </svg>
+                </button>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-8"
+                id="searchResults">
+                <!-- Результаты будут загружены через API -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Новинки кино с табами -->
+    <section class="py-20 px-6 relative z-10 bg-gradient-to-b from-gray-900/50 to-gray-900">
+        <div class="container mx-auto">
+            <div class="flex justify-between items-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold font-playfair">
+                    <span
+                        class="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-purple-500">Новинки</span>
+                    кино
+                </h2>
+
+                <div class="flex space-x-2 bg-gray-800 rounded-full p-1">
+                    <button class="tab-button active px-4 py-2 rounded-full text-sm font-medium transition-all"
+                        data-tab="movies">Фильмы</button>
+                    <button class="tab-button px-4 py-2 rounded-full text-sm font-medium transition-all"
+                        data-tab="series">Сериалы</button>
+                    <button class="tab-button px-4 py-2 rounded-full text-sm font-medium transition-all"
+                        data-tab="cartoons">Мультфильмы</button>
+                </div>
+            </div>
+
+            <div class="tab-content active" id="movies-tab">
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-8"
+                    id="newMovies">
+                    <!-- Фильмы будут загружены через API -->
+                    <div class="skeleton-card h-96 w-full bg-gray-800 rounded-xl"></div>
+                    <div class="skeleton-card h-96 w-full bg-gray-800 rounded-xl"></div>
+                    <div class="skeleton-card h-96 w-full bg-gray-800 rounded-xl"></div>
+                    <div class="skeleton-card h-96 w-full bg-gray-800 rounded-xl"></div>
+                    <div class="skeleton-card h-96 w-full bg-gray-800 rounded-xl"></div>
+                </div>
+            </div>
+
+            <div class="tab-content hidden" id="series-tab">
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-8"
+                    id="newSeries">
+                    <!-- Сериалы будут загружены через API -->
+                </div>
+            </div>
+
+            <div class="tab-content hidden" id="cartoons-tab">
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-8"
+                    id="newCartoons">
+                    <!-- Мультфильмы будут загружены через API -->
+                </div>
+            </div>
+
+            <div class="mt-12 text-center">
+                <button
+                    class="px-8 py-3 bg-transparent border-2 border-red-500 text-red-400 hover:bg-red-500 hover:text-white rounded-full font-medium transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-red-500/30 flex items-center mx-auto">
+                    <span class="mr-2">➕</span> Показать еще
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Премиум подписка -->
+     
+    <section class="py-20 px-6 bg-gradient-to-r from-purple-900/50 via-gray-900 to-red-900/50 relative overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <div class="absolute inset-0 bg-gradient-to-r from-purple-900/20 via-transparent to-red-900/20"></div>
+            <div
+                class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/dark-stripes.png')] opacity-10">
+            </div>
+        </div>
+
+        <div class="container mx-auto relative z-10">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold font-playfair mb-4">
+                    <span
+                        class="text-transparent bg-clip-text bg-gradient-to-r from-red-500 via-purple-500 to-red-500">CineMagic</span>
+                    Premium
+                </h2>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto">Получите эксклюзивный доступ к премиум контенту без
+                    рекламы и в наивысшем качестве</p>
+            </div>
+
+            <div class="flex flex-col md:flex-row items-center justify-center gap-8 max-w-7xl mx-auto">
+                <!-- QR код слева -->
+                <div class="hidden md:block w-48 h-48 bg-white p-2 rounded-lg shadow-xl">
+                    <img src="./QR 1.jpg" alt="QR код для оплаты" class="w-full h-full object-contain">
+                    <p class="text-center text-xs text-gray-700 mt-2">САЛМАН A.</p>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-8 flex-grow">
+                    <div
+                        class="premium-card bg-gray-900/80 backdrop-blur-md rounded-xl p-8 border border-gray-800 hover:border-red-500 transition-all duration-500 transform hover:-translate-y-2 relative overflow-hidden">
+                        <div
+                            class="absolute top-0 right-0 bg-red-500 text-white text-xs font-bold px-3 py-1 rounded-bl-lg">
+                            БАЗОВЫЙ</div>
+                        <h3 class="text-2xl font-bold mb-4">Стандарт</h3>
+                        <p class="text-gray-400 mb-6">Для тех, кто хочет смотреть без ограничений</p>
+                        <div class="text-4xl font-bold mb-6">$9.99<span class="text-lg text-gray-400">/месяц</span>
+                        </div>
+                        <ul class="space-y-3 mb-8">
+                            <li class="flex items-center"><svg class="w-5 h-5 text-green-500 mr-2" fill="none"
+                                    stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M5 13l4 4L19 7"></path>
+                                </svg> Full HD качество</li>
+                            <li class="flex items-center"><svg class="w-5 h-5 text-green-500 mr-2" fill="none"
+                                    stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M5 13l4 4L19 7"></path>
+                                </svg> Без рекламы</li>
+                            <li class="flex items-center"><svg class="w-5 h-5 text-green-500 mr-2" fill="none"
+                                    stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M5 13l4 4L19 7"></path>
+                                </svg> 2 устройства</li>
+                            <li class="flex items-center text-gray-500"><svg class="w-5 h-5 text-gray-500 mr-2"
+                                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M6 18L18 6M6 6l12 12"></path>
+                                </svg> 4K качество</li>
+                            <li class="flex items-center text-gray-500"><svg class="w-5 h-5 text-gray-500 mr-2"
+                                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M6 18L18 6M6 6l12 12"></path>
+                                </svg> Оффлайн просмотр</li>
+                        </ul>
+                        <button
+                            class="w-full py-3 bg-gray-800 hover:bg-gray-700 text-white rounded-lg font-medium transition">Выбрать
+                            план</button>
+                    </div>
+
+                    <div
+                        class="premium-card bg-gradient-to-br from-purple-900/50 to-red-900/50 backdrop-blur-md rounded-xl p-8 border border-purple-500 shadow-lg shadow-purple-500/20 transform scale-105 -translate-y-2 relative overflow-hidden z-20">
+                        <div
+                            class="absolute top-0 right-0 bg-gradient-to-r from-purple-500 to-red-500 text-white text-xs font-bold px-3 py-1 rounded-bl-lg">
+                            ПОПУЛЯРНЫЙ</div>
+                        <h3 class="text-2xl font-bold mb-4">Премиум</h3>
+                        <p class="text-gray-300 mb-6">Лучший выбор для настоящих киноманов</p>
+                        <div class="text-4xl font-bold mb-6">$14.99<span class="text-lg text-gray-300">/месяц</span>
+                        </div>
+                        <ul class="space-y-3 mb-8">
+                            <li class="flex items-center"><svg class="w-5 h-5 text-green-400 mr-2" fill="none"
+                                    stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M5 13l4 4L19 7"></path>
+                                </svg> 4K Ultra HD</li>
+                            <li class="flex items-center"><svg class="w-5 h-5 text-green-400 mr-2" fill="none"
+                                    stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M5 13l4 4L19 7"></path>
+                                </svg> Без рекламы</li>
+                            <li class="flex items-center"><svg class="w-5 h-5 text-green-400 mr-2" fill="none"
+                                    stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M5 13l4 4L19 7"></path>
+                                </svg> 5 устройств</li>
+                            <li class="flex items-center"><svg class="w-5 h-5 text-green-400 mr-2" fill="none"
+                                    stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M5 13l4 4L19 7"></path>
+                                </svg> Оффлайн просмотр</li>
+                            <li class="flex items-center"><svg class="w-5 h-5 text-green-400 mr-2" fill="none"
+                                    stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M5 13l4 4L19 7"></path>
+                                </svg> Эксклюзивный контент</li>
+                        </ul>
+                        <button
+                            class="w-full py-3 bg-gradient-to-r from-purple-500 to-red-500 hover:from-purple-600 hover:to-red-600 text-white rounded-lg font-medium transition shadow-lg hover:shadow-purple-500/30">Выбрать
+                            план</button>
+                    </div>
+
+                    <div
+                        class="premium-card bg-gray-900/80 backdrop-blur-md rounded-xl p-8 border border-gray-800 hover:border-purple-500 transition-all duration-500 transform hover:-translate-y-2 relative overflow-hidden">
+                        <div
+                            class="absolute top-0 right-0 bg-purple-500 text-white text-xs font-bold px-3 py-1 rounded-bl-lg">
+                            СЕМЕЙНЫЙ</div>
+                        <h3 class="text-2xl font-bold mb-4">Семья</h3>
+                        <p class="text-gray-400 mb-6">Для тех, кто любит кино в кругу семьи</p>
+                        <div class="text-4xl font-bold mb-6">$19.99<span class="text-lg text-gray-400">/месяц</span>
+                        </div>
+                        <ul class="space-y-3 mb-8">
+                            <li class="flex items-center"><svg class="w-5 h-5 text-green-500 mr-2" fill="none"
+                                    stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M5 13l4 4L19 7"></path>
+                                </svg> 4K Ultra HD</li>
+                            <li class="flex items-center"><svg class="w-5 h-5 text-green-500 mr-2" fill="none"
+                                    stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M5 13l4 4L19 7"></path>
+                                </svg> Без рекламы</li>
+                            <li class="flex items-center"><svg class="w-5 h-5 text-green-500 mr-2" fill="none"
+                                    stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M5 13l4 4L19 7"></path>
+                                </svg> До 10 устройств</li>
+                            <li class="flex items-center"><svg class="w-5 h-5 text-green-500 mr-2" fill="none"
+                                    stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M5 13l4 4L19 7"></path>
+                                </svg> Оффлайн просмотр</li>
+                            <li class="flex items-center"><svg class="w-5 h-5 text-green-500 mr-2" fill="none"
+                                    stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M5 13l4 4L19 7"></path>
+                                </svg> Детский режим</li>
+                        </ul>
+                        <button
+                            class="w-full py-3 bg-purple-600 hover:bg-purple-700 text-white rounded-lg font-medium transition">Выбрать
+                            план</button>
+                    </div>
+                </div>
+
+                <!-- QR код справа -->
+                <div class="hidden md:block w-48 h-48 bg-white p-2 rounded-lg shadow-xl">
+                    <img src="./QR 2.jpg" alt="QR код для оплаты" class="w-full h-full object-contain">
+                    <p class="text-center text-xs text-gray-700 mt-2">PATMИP K.</p>
+                </div>
+            </div>
+
+            <!-- QR коды для мобильных (отображаются только на мобильных) -->
+            <div class="flex md:hidden justify-center gap-8 mt-8">
+                <div class="w-32 h-32 bg-white p-2 rounded-lg shadow-xl">
+                    <img src="QR 1.jpg" alt="QR код для оплаты" class="w-full h-full object-contain">
+                    <p class="text-center text-xs text-gray-700 mt-1">CAЛMAH A.</p>
+                </div>
+                <div class="w-32 h-32 bg-white p-2 rounded-lg shadow-xl">
+                    <img src="QR 2.jpg" alt="QR код для оплаты" class="w-full h-full object-contain">
+                    <p class="text-center text-xs text-gray-700 mt-1">PATMИP K.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Отзывы -->
+    <section class="py-20 px-6 bg-gray-900/80 backdrop-blur-md relative overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <div
+                class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10">
+            </div>
+        </div>
+
+        <div class="container mx-auto relative z-10">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold font-playfair mb-4">
+                    Что говорят <span
+                        class="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-purple-500">наши
+                        пользователи</span>
+                </h2>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto">Присоединяйтесь к миллионам довольных зрителей по
+                    всему миру</p>
+            </div>
+
+            <div class="swiper-container testimonials-slider">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <div
+                            class="bg-gray-800/80 backdrop-blur-md rounded-xl p-8 h-full border border-gray-700 hover:border-red-500 transition-all">
+                            <div class="flex items-center mb-6">
+                                <img src="https://randomuser.me/api/portraits/women/43.jpg" alt="User"
+                                    class="w-12 h-12 rounded-full object-cover mr-4 border-2 border-red-500">
+                                <div>
+                                    <h4 class="font-bold">Анна К.</h4>
+                                    <div class="flex text-yellow-400">
+                                        <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20">
+                                            <path
+                                                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                                            </path>
+                                        </svg>
+                                        <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20">
+                                            <path
+                                                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                                            </path>
+                                        </svg>
+                                        <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20">
+                                            <path
+                                                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                                            </path>
+                                        </svg>
+                                        <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20">
+                                            <path
+                                                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                                            </path>
+                                        </svg>
+                                        <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20">
+                                            <path
+                                                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                                            </path>
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="text-gray-300">"Лучший сервис для просмотра фильмов! Особенно нравится подборка
+                                классики кино и удобный интерфейс. Премиум подписка полностью оправдывает свою
+                                стоимость."</p>
+                        </div>
+                    </div>
+
+                    <div class="swiper-slide">
+                        <div
+                            class="bg-gray-800/80 backdrop-blur-md rounded-xl p-8 h-full border border-gray-700 hover:border-purple-500 transition-all">
+                            <div class="flex items-center mb-6">
+                                <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="User"
+                                    class="w-12 h-12 rounded-full object-cover mr-4 border-2 border-purple-500">
+                                <div>
+                                    <h4 class="font-bold">Иван П.</h4>
+                                    <div class="flex text-yellow-400">
+                                        <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20">
+                                            <path
+                                                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                                            </path>
+                                        </svg>
+                                        <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20">
+                                            <path
+                                                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                                            </path>
+                                        </svg>
+                                        <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20">
+                                            <path
+                                                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                                            </path>
+                                        </svg>
+                                        <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20">
+                                            <path
+                                                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                                            </path>
+                                        </svg>
+                                        <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20">
+                                            <path
+                                                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                                            </path>
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="text-gray-300">"Отличная платформа с огромной библиотекой фильмов. Особенно
+                                впечатляет качество трансляции в 4K и удобные рекомендации. Пользуюсь уже больше года и
+                                ни разу не пожалел!"</p>
+                        </div>
+                    </div>
+
+                    <div class="swiper-slide">
+                        <div
+                            class="bg-gray-800/80 backdrop-blur-md rounded-xl p-8 h-full border border-gray-700 hover:border-red-500 transition-all">
+                            <div class="flex items-center mb-6">
+                                <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="User"
+                                    class="w-12 h-12 rounded-full object-cover mr-4 border-2 border-red-500">
+                                <div>
+                                    <h4 class="font-bold">Елена С.</h4>
+                                    <div class="flex text-yellow-400">
+                                        <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20">
+                                            <path
+                                                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                                            </path>
+                                        </svg>
+                                        <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20">
+                                            <path
+                                                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                                            </path>
+                                        </svg>
+                                        <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20">
+                                            <path
+                                                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                                            </path>
+                                        </svg>
+                                        <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20">
+                                            <path
+                                                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                                            </path>
+                                        </svg>
+                                        <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20">
+                                            <path
+                                                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                                            </path>
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="text-gray-300">"Обожаю CineMagic за удобный интерфейс и отличную подборку фильмов
+                                для детей. Детский режим в семейной подписке - просто спасение для родителей! Рекомендую
+                                всем знакомым."</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-pagination !bottom-0"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Подвал сайта премиум -->
+    <footer class="py-12 px-6 bg-gray-900/95 backdrop-blur-md border-t border-gray-800 relative z-10">
+        <div class="container mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12">
+                <div>
+                    <div class="flex items-center space-x-2 mb-6">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-red-500" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M7 4v16M17 4v16M3 8h4m10 0h4M3 12h18M3 16h4m10 0h4M4 20h16a1 1 0 001-1V5a1 1 0 00-1-1H4a1 1 0 00-1 1v14a1 1 0 001 1z" />
+                        </svg>
+                        <h2 class="text-xl font-bold">CineMagic</h2>
+                    </div>
+                    <p class="text-gray-400 mb-6">Лучшие фильмы и сериалы в одном месте. Погрузитесь в мир кино с нами!
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white transition">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor"
+                                viewBox="0 0 24 24">
+                                <path
+                                    d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z" />
+                            </svg>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor"
+                                viewBox="0 0 24 24">
+                                <path
+                                    d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                            </svg>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor"
+                                viewBox="0 0 24 24">
+                                <path
+                                    d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-semibold mb-6">Навигация</h3>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-gray-400 hover:text-red-400 transition">Главная</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-red-400 transition">Фильмы</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-red-400 transition">Сериалы</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-red-400 transition">Новинки</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-red-400 transition">Премиум</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-semibold mb-6">Жанры</h3>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-gray-400 hover:text-red-400 transition">Боевики</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-red-400 transition">Комедии</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-red-400 transition">Драмы</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-red-400 transition">Фантастика</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-red-400 transition">Ужасы</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-semibold mb-6">Подписка</h3>
+                    <p class="text-gray-400 mb-6">Подпишитесь на нашу рассылку, чтобы получать уведомления о новинках и
+                        специальных предложениях.</p>
+                    <div class="flex">
+                        <input type="email" placeholder="Ваш email"
+                            class="py-2 px-4 bg-gray-800 text-white rounded-l-lg focus:outline-none focus:ring-1 focus:ring-red-500 w-full">
+                        <button
+                            class="bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded-r-lg transition">OK</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-12 pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-500 mb-4 md:mb-0">© 2025 CineMagic. Все права защищены.</p>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-500 hover:text-gray-300 transition">Политика конфиденциальности</a>
+                    <a href="#" class="text-gray-500 hover:text-gray-300 transition">Условия использования</a>
+                    <a href="#" class="text-gray-500 hover:text-gray-300 transition">Контакты</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Кнопка "Наверх" -->
+    <button id="backToTop"
+        class="fixed bottom-8 right-8 bg-red-600 hover:bg-red-700 text-white w-12 h-12 rounded-full flex items-center justify-center shadow-xl transition-all opacity-0 invisible z-50">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+        </svg>
+    </button>
+
+    <!-- Скрипты -->
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
